@@ -181,11 +181,9 @@ public class Picture extends SimplePicture {
         Pixel[][] grid = this.getPixels2D();
         for (Pixel[] row : grid) {
             for (Pixel p : row) {
-                p.setRed(p.getRed() * 3 / 4);
-                p.setGreen(p.getGreen() / 2);
-                p.setBlue(p.getBlue() / 2);
-                
-
+                p.setBlue(p.getBlue() * p.getBlue() / 255);
+                p.setGreen(p.getGreen() * p.getGreen() / 255);
+                p.setRed(p.getRed() * 2);
             }
         }
     }
@@ -196,7 +194,16 @@ public class Picture extends SimplePicture {
      */
     public void mirrorVertical() {
         Pixel[][] picture = this.getPixels2D();
-
+        for (int row = 0; row < picture.length; row++) {
+            for (int col = 0; col < picture[0].length / 2; col++) {
+                Pixel p1 = picture[row][col];
+                Pixel p2 = picture[row][picture[0].length - col - 1];
+                p2.setAlpha(p1.getAlpha());
+                p2.setRed(p1.getRed());
+                p2.setGreen(p1.getGreen());
+                p2.setBlue(p1.getBlue());
+            }
+        }
     }
 
     /**
@@ -204,8 +211,17 @@ public class Picture extends SimplePicture {
      * picture from right to left
      */
     public void mirrorVerticalRightToLeft() {
-        Pixel[][] pixels = this.getPixels2D();
-
+        Pixel[][] picture = this.getPixels2D();
+        for (int row = 0; row < picture.length; row++) {
+            for (int col = 0; col < picture[0].length / 2; col++) {
+                Pixel p1 = picture[row][picture[0].length - col - 1];
+                Pixel p2 = picture[row][col];
+                p2.setAlpha(p1.getAlpha());
+                p2.setRed(p1.getRed());
+                p2.setGreen(p1.getGreen());
+                p2.setBlue(p1.getBlue());
+            }
+        }
     }
 
     /**
@@ -213,8 +229,17 @@ public class Picture extends SimplePicture {
      * the picture from top to botttom
      */
     public void mirrorHorizontal() {
-        Pixel[][] pixels = this.getPixels2D();
-
+        Pixel[][] picture = this.getPixels2D();
+        for (int row = 0; row < picture.length / 2; row++) {
+            for (int col = 0; col < picture[0].length; col++) {
+                Pixel p1 = picture[row][col];
+                Pixel p2 = picture[picture.length - row - 1][col];
+                p2.setAlpha(p1.getAlpha());
+                p2.setRed(p1.getRed());
+                p2.setGreen(p1.getGreen());
+                p2.setBlue(p1.getBlue());
+            }
+        }
     }
 
     /**
@@ -222,7 +247,17 @@ public class Picture extends SimplePicture {
      * the picture from bottom to top
      */
     public void mirrorHorizontalBotToTop() {
-
+        Pixel[][] picture = this.getPixels2D();
+        for (int row = 0; row < picture.length / 2; row++) {
+            for (int col = 0; col < picture[0].length; col++) {
+                Pixel p1 = picture[picture.length - row - 1][col];
+                Pixel p2 = picture[row][col];
+                p2.setAlpha(p1.getAlpha());
+                p2.setRed(p1.getRed());
+                p2.setGreen(p1.getGreen());
+                p2.setBlue(p1.getBlue());
+            }
+        }
     }
 
     /**
@@ -230,14 +265,33 @@ public class Picture extends SimplePicture {
      * top right
      */
     public void mirrorDiagonal() {
-        Pixel[][] pixels = this.getPixels2D();
-
+        Pixel[][] picture = this.getPixels2D();
+        int diagLength = Math.min(picture.length, picture[0].length);
+        for (int row = 0; row < diagLength; row++) {
+            for (int col = 0; col < diagLength - row; col++) {
+                Pixel p1 = picture[row][col];
+                Pixel p2 = picture[diagLength - col - 1][diagLength - row - 1];
+                p2.setAlpha(p1.getAlpha());
+                p2.setRed(p1.getRed());
+                p2.setGreen(p1.getGreen());
+                p2.setBlue(p1.getBlue());
+            }
+        }
     }
 
     /** Mirror just part of a picture of a temple */
     public void mirrorTemple() {
-        Pixel[][] pixels = this.getPixels2D();
-
+        Pixel[][] picture = this.getPixels2D();
+        for (int row = 0; row < 100; row++) {
+            for (int col = 0; col < picture[0].length / 2; col++) {
+                Pixel p1 = picture[row][col];
+                Pixel p2 = picture[row][picture[0].length - col - 1];
+                p2.setAlpha(p1.getAlpha());
+                p2.setRed(p1.getRed());
+                p2.setGreen(p1.getGreen());
+                p2.setBlue(p1.getBlue());
+            }
+        }
     }
 
     /** Mirror just part of a picture of a snowman */
