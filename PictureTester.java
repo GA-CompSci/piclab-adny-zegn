@@ -43,7 +43,7 @@ public class PictureTester {
 
         // ---------------
         // ACTIVITY 8
-        // testCollage();
+        testCollage();
 
         // ---------------
         // ACTIVITY 9

@@ -198,10 +198,7 @@ public class Picture extends SimplePicture {
             for (int col = 0; col < picture[0].length / 2; col++) {
                 Pixel p1 = picture[row][col];
                 Pixel p2 = picture[row][picture[0].length - col - 1];
-                p2.setAlpha(p1.getAlpha());
-                p2.setRed(p1.getRed());
-                p2.setGreen(p1.getGreen());
-                p2.setBlue(p1.getBlue());
+                p2.setColor(p1.getColor());
             }
         }
     }
@@ -216,10 +213,7 @@ public class Picture extends SimplePicture {
             for (int col = 0; col < picture[0].length / 2; col++) {
                 Pixel p1 = picture[row][picture[0].length - col - 1];
                 Pixel p2 = picture[row][col];
-                p2.setAlpha(p1.getAlpha());
-                p2.setRed(p1.getRed());
-                p2.setGreen(p1.getGreen());
-                p2.setBlue(p1.getBlue());
+                p2.setColor(p1.getColor());
             }
         }
     }
@@ -234,10 +228,7 @@ public class Picture extends SimplePicture {
             for (int col = 0; col < picture[0].length; col++) {
                 Pixel p1 = picture[row][col];
                 Pixel p2 = picture[picture.length - row - 1][col];
-                p2.setAlpha(p1.getAlpha());
-                p2.setRed(p1.getRed());
-                p2.setGreen(p1.getGreen());
-                p2.setBlue(p1.getBlue());
+                p2.setColor(p1.getColor());
             }
         }
     }
@@ -252,10 +243,7 @@ public class Picture extends SimplePicture {
             for (int col = 0; col < picture[0].length; col++) {
                 Pixel p1 = picture[picture.length - row - 1][col];
                 Pixel p2 = picture[row][col];
-                p2.setAlpha(p1.getAlpha());
-                p2.setRed(p1.getRed());
-                p2.setGreen(p1.getGreen());
-                p2.setBlue(p1.getBlue());
+                p2.setColor(p1.getColor());
             }
         }
     }
@@ -271,10 +259,7 @@ public class Picture extends SimplePicture {
             for (int col = 0; col < diagLength - row; col++) {
                 Pixel p1 = picture[row][col];
                 Pixel p2 = picture[diagLength - col - 1][diagLength - row - 1];
-                p2.setAlpha(p1.getAlpha());
-                p2.setRed(p1.getRed());
-                p2.setGreen(p1.getGreen());
-                p2.setBlue(p1.getBlue());
+                p2.setColor(p1.getColor());
             }
         }
     }
@@ -286,22 +271,47 @@ public class Picture extends SimplePicture {
             for (int col = 0; col < picture[0].length / 2; col++) {
                 Pixel p1 = picture[row][col];
                 Pixel p2 = picture[row][picture[0].length - col - 1];
-                p2.setAlpha(p1.getAlpha());
-                p2.setRed(p1.getRed());
-                p2.setGreen(p1.getGreen());
-                p2.setBlue(p1.getBlue());
+                p2.setColor(p1.getColor());
             }
         }
     }
 
     /** Mirror just part of a picture of a snowman */
     public void mirrorArms() {
+        Pixel[][] picture = this.getPixels2D();
 
+        // ARM 1
+        // mirrored region: [155, 190] x [100, 170]
+        for (int row = 155; row < 190; row++) {
+            for (int col = 100; col < 170; col++) {
+                Pixel p1 = picture[row][col];
+                Pixel p2 = picture[2 * 190 - row][col]; // mirror about row = 190
+                p2.setColor(p1.getColor());
+            }
+        }
+
+        // ARM 2
+        // mirrored region: [170, 200] x [238, 295]
+        for (int row = 170; row < 200; row++) {
+            for (int col = 238; col < 295; col++) {
+                Pixel p1 = picture[row][col];
+                Pixel p2 = picture[2 * 190 - row][col]; // mirror about row = 190
+                p2.setColor(p1.getColor());
+            }
+        }
     }
 
     /** Mirror just the gull */
     public void mirrorGull() {
-
+        Pixel[][] picture = this.getPixels2D();
+        // mirrored region: [230, 325] x [230, 345]
+        for (int row = 230; row < 325; row++) {
+            for (int col = 230; col < 345; col++) {
+                Pixel p1 = picture[row][col];
+                Pixel p2 = picture[row][2 * 345 - col ]; // mirror about col = 345
+                p2.setColor(p1.getColor());
+            }
+        }
     }
 
     /**
@@ -331,7 +341,10 @@ public class Picture extends SimplePicture {
     /** Method to create a collage of several pictures */
     public void createCollage() {
         Pixel[][] pixels = this.getPixels2D();
-
+        Picture koala = new Picture("koala.jpg");
+        Picture kitten = new Picture("kitten2.jpg");    
+        copy(koala, 45, 160, 440, 400, 0, 0);
+        copy(kitten, 80, 125, 205, 340, 0, 241);
         this.popArt();
     }
 
