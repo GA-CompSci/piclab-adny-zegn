@@ -111,6 +111,16 @@ public class Picture extends SimplePicture {
         }
     }
 
+    public void rootGreen() {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] row : pixels) {
+            for (Pixel p : row) {
+                double newGreen = Math.sqrt((double)p.getGreen() / 255);
+                p.setGreen((int)(255 * newGreen));
+            }
+        }
+    }
+
     /**
      * Method that keeps only the blue color - sets the red and green to zero
      */
@@ -342,9 +352,13 @@ public class Picture extends SimplePicture {
     public void createCollage() {
         Pixel[][] pixels = this.getPixels2D();
         Picture koala = new Picture("koala.jpg");
-        Picture kitten = new Picture("kitten2.jpg");    
-        copy(koala, 45, 160, 440, 400, 0, 0);
-        copy(kitten, 80, 125, 205, 340, 0, 241);
+        Picture kitten = new Picture("kitten2.jpg");
+        Picture swan = new Picture("swan.jpg");
+        koala.mirrorHorizontal();
+        koala.rootGreen();
+        copy(koala, 0, 120, 480, 440, 0, 0);
+        copy(kitten, 60, 75, 220, 395, 0, 321);
+        copy(swan, 35, 75, 305, 395, 161, 321);
         this.popArt();
     }
 
