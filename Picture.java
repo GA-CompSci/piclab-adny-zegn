@@ -111,12 +111,32 @@ public class Picture extends SimplePicture {
         }
     }
 
-    public void rootGreen() {
+    public void tintRed() {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] row : pixels) {
+            for (Pixel p : row) {
+                double newRed = Math.sqrt((double)p.getRed() / 255);
+                p.setRed((int)(255 * newRed));
+            }
+        }
+    }
+
+    public void tintGreen() {
         Pixel[][] pixels = this.getPixels2D();
         for (Pixel[] row : pixels) {
             for (Pixel p : row) {
                 double newGreen = Math.sqrt((double)p.getGreen() / 255);
                 p.setGreen((int)(255 * newGreen));
+            }
+        }
+    }
+
+    public void tintBlue() {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] row : pixels) {
+            for (Pixel p : row) {
+                double newBlue = Math.sqrt((double)p.getBlue() / 255);
+                p.setBlue((int)(255 * newBlue));
             }
         }
     }
@@ -335,7 +355,15 @@ public class Picture extends SimplePicture {
         Pixel[][] pixels = this.getPixels2D();
         Picture swan = new Picture("swan.jpg");
         Pixel[][] original = swan.getPixels2D();
-
+        for (int row = 0; row < original.length; row++) {
+            for (int col = 0; col < original[0].length - 1; col++) {
+                leftPixel = original[row][col];
+                rightPixel = original[row][col + 1];
+                if (leftPixel.colorDistance(rightPixel.getColor()) > edgeDist) {
+                    pixels[row][col].setColor(Color.BLACK);
+                } else pixels[row][col].setColor(Color.WHITE);
+            }
+        }
     }
 
     /**
@@ -344,8 +372,21 @@ public class Picture extends SimplePicture {
      * @param edgeDist the distance for finding edges
      */
     public void customEdgeDetection(int edgeDist) {
-        Picture copy = new Picture(this);
-
+        Pixel origPixel;
+        Pixel rightPixel;
+        Pixel bottomPixel;
+        Pixel[][] original = this.getPixels2D();
+        for (int row = 0; row < original.length - 1; row++) {
+            for (int col = 0; col < original[0].length - 1; col++) {
+                origPixel = original[row][col];
+                rightPixel = original[row][col + 1];
+                bottomPixel = original[row + 1][col];
+                double colorGrad = Math.max(origPixel.colorDistance(rightPixel.getColor()), origPixel.colorDistance(bottomPixel.getColor()));
+                if (colorGrad > edgeDist) {
+                    origPixel.setColor(Color.BLACK);
+                } else origPixel.setColor(Color.WHITE);
+            }
+        }
     }
 
     /** Method to create a collage of several pictures */
@@ -355,11 +396,13 @@ public class Picture extends SimplePicture {
         Picture kitten = new Picture("kitten2.jpg");
         Picture swan = new Picture("swan.jpg");
         koala.mirrorHorizontal();
-        koala.rootGreen();
+        koala.tintGreen();
+        kitten.tintBlue();
+        swan.negate();
+        swan.tintRed();
         copy(koala, 0, 120, 480, 440, 0, 0);
         copy(kitten, 60, 75, 220, 395, 0, 321);
-        copy(swan, 35, 75, 305, 395, 161, 321);
-        this.popArt();
+        copy(swan, 35, 75, 355, 395, 161, 321);
     }
 
     /**

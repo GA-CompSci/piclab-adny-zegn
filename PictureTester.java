@@ -43,11 +43,12 @@ public class PictureTester {
 
         // ---------------
         // ACTIVITY 8
-        testCollage();
+        // testCollage();
 
         // ---------------
         // ACTIVITY 9
         // testEdgeDetection();
+        // testCustomEdgeDetection();
 
         // ---EXTRA---
         // testPopArt();
@@ -60,7 +61,7 @@ public class PictureTester {
     }
 
     public static void testPopArt() {
-        Picture pop = new Picture("CumberlandIsland.jpg");
+        Picture pop = new Picture("swan.jpg");
         pop.popArt();
         pop.explore();
     }
@@ -196,7 +197,7 @@ public class PictureTester {
     /** Method to test testCustomEdgeDetection */
     public static void testCustomEdgeDetection() {
         Picture swan = new Picture("swan.jpg");
-        swan.customEdgeDetection(10);
+        swan.customEdgeDetection(20);
         swan.explore();
     }
 
