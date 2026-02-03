@@ -48,9 +48,9 @@ public class PictureTester {
         // ---------------
         // ACTIVITY 9
         // testEdgeDetection();
-        // testCustomEdgeDetection();
 
         // ---EXTRA---
+        // estTintRed();
         // testPopArt();
         // testChromakey();
         // testEncodeAndDecode();
@@ -190,7 +190,7 @@ public class PictureTester {
     /** Method to test edgeDetection */
     public static void testEdgeDetection() {
         Picture swan = new Picture("swan.jpg");
-        swan.edgeDetection(10);
+        swan.edgeDetection(20);
         swan.explore();
     }
 
@@ -201,6 +201,11 @@ public class PictureTester {
         swan.explore();
     }
 
+    public static void testTintRed() {
+        Picture moon = new Picture("moon-surface.jpg");
+        moon.tintRed();
+        moon.explore();
+    }
     /** Method to test chromakey */
     public static void testChromakey() {
         Picture mark = new Picture("blue-mark.jpg");
