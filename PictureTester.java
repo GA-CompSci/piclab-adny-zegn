@@ -47,10 +47,10 @@ public class PictureTester {
 
         // ---------------
         // ACTIVITY 9
-        // testEdgeDetection();
+        testEdgeDetection();
 
         // ---EXTRA---
-        // estTintRed();
+        // testTintRed();
         // testPopArt();
         // testChromakey();
         // testEncodeAndDecode();
@@ -189,9 +189,9 @@ public class PictureTester {
 
     /** Method to test edgeDetection */
     public static void testEdgeDetection() {
-        Picture swan = new Picture("swan.jpg");
-        swan.edgeDetection(20);
-        swan.explore();
+        Picture temple = new Picture("temple.jpg");
+        temple.edgeDetection(20);
+        temple.explore();
     }
 
     /** Method to test testCustomEdgeDetection */
